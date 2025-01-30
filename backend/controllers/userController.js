@@ -14,6 +14,7 @@ const register = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+        console.log(`${existingUser.email} alreadt exists`)
       return res.status(400).json({ message: 'User already exists' });
     }
 
@@ -45,15 +46,17 @@ const login = async (req, res) => {
     // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+        console.log(`${email} not found for logging in`)
+      return res.status(400).json({ message: 'Invalid email' });
     }
 
     // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+        console.log(` wrong password for ${user.email}`)
+      return res.status(400).json({ message: 'Invalid password' });
     }
-
+    console.log(`Login successfull for ${user.email}`)
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error', error: error.message });
