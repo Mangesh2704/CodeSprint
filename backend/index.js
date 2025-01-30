@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv'
+import mongoose from 'mongoose';
 import authRoutes from  './routes/authRoutes.js'
 dotenv.config()
 
@@ -18,6 +19,7 @@ const Port = process.env.PORT
 
 
 app.use('/api/auth',authRoutes);
+
 
 
 app.listen(Port, ()=> {
