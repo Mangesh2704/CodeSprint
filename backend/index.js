@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import dotenv from 'dotenv'
 import userRouter from  './routes/userRouter.js'
+import complaintRouter from './routes/complaintRouter.js'
 import cors from 'cors'
 import mongoose from 'mongoose';
 dotenv.config()
@@ -23,6 +24,8 @@ app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
 
 app.use('/user', userRouter);
+app.use('/complaint', complaintRouter);
+
 
 app.get('/', (req, res)=> {
     res.send("Working fine")
