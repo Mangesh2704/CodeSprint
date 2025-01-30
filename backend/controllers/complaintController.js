@@ -8,13 +8,20 @@ const createComplaint = async (req, res) => {
     try {
         const { user, title, description, category, location } = req.body;
         console.log(req.body)
+
+        // Get the image path if file was uploaded
+        let imagePath = '';
+        if (req.file) {
+            imagePath = req.file.path;  // Multer stores the file path in req.file.path
+        }
         // Create a new complaint instance
         const newComplaint = new Complaint({
             user,
             title,
             description,
             category,
-            location
+            location,
+            imagePath  
         });
 
         // // Save the complaint to the database

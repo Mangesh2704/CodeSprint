@@ -37,6 +37,9 @@ const complaintSchema = new mongoose.Schema({
     resolvedAt: {
         type: Date
     },
+    imagePath: {
+        type: String  // Path to the uploaded image (relative path)
+    }
     
 });
 
