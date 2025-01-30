@@ -1,7 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv'
-import mongoose from 'mongoose';
-import cors from 'cors';
+import authRoutes from  './routes/authRoutes.js'
 dotenv.config()
 
 async function connectDB() {
@@ -17,10 +16,9 @@ const app = express();
 const localIp = process.env.IP
 const Port = process.env.PORT
 
-app.use(cors())
-app.get('/', (req, res)=> {
-    res.send("Server working fine")
-})
+
+app.use('/api/auth',authRoutes);
+
 
 app.listen(Port, ()=> {
     console.log(`Server listening to port http://${localIp}:${Port}`);
