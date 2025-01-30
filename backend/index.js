@@ -42,6 +42,8 @@ app.use(session({
 }));
 
 app.use('/user', userRouter);
+app.use('/complaint', complaintRouter);
+
 
 app.get('/', (req, res) => {
     res.send("Working fine");
