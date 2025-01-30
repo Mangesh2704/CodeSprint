@@ -5,6 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import complaintRouter from './routes/complaintRouter.js'
 
 dotenv.config();
 
