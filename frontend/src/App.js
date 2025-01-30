@@ -14,6 +14,9 @@ import Error from './pages/Error'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import AddComplaints from './pages/AddComplaint'
+import MyComplaints from './pages/MyComplaint'
+import Admin from './pages/AdminDashboard'
 
 export default function App() {
   return (
@@ -32,6 +35,9 @@ export default function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
+        <Route path='/addcomplaints' element={<AddComplaints/>}/>
+        <Route path='/mycomplaints' element={<MyComplaints/>}/>
+        <Route path='/admin' element={<Admin/>}/>
         </Routes>
         <Footer />
     </div>
