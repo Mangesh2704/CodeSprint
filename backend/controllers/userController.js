@@ -41,26 +41,50 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(`Email: ${email} wants to login`)
+  console.log(`Email: ${email} wants to login`);
   try {
     // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
-        console.log(`${email} not found for logging in`)
+      console.log(`${email} not found for logging in`);
       return res.status(400).json({ message: 'Invalid email' });
     }
 
     // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        console.log(` wrong password for ${user.email}`)
+      console.log(`Wrong password for ${user.email}`);
       return res.status(400).json({ message: 'Invalid password' });
     }
-    console.log(`Login successfull for ${user.email}`)
+
+    console.log(`Login successful for ${user.email}`);
+
+    // Store user info in session
+    req.session.user = {
+      _id: user._id,
+      email: user.email,
+      name: user.name, // Adjust according to your user schema
+    };
+
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
 
-export default {login,home,register}
+
+const logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Could not log out' });
+    }
+    res.status(200).json({ message: 'Logout successful' });
+  });
+};
+
+
+const getSession = (req, res) => {
+    res.send(req.session)
+}
+
+export default {login,home,register, getSession, logout}
