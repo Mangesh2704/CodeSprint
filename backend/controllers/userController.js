@@ -30,6 +30,7 @@ const register = async (req, res) => {
 
     // Save user to database
     await newUser.save();
+    console.log("User Registered:", newUser)
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
@@ -39,6 +40,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(`Email: ${email} wants to login`)
   try {
     // Check if user exists
     const user = await User.findOne({ email });
