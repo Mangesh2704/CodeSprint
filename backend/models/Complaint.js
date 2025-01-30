@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 // Complaint Schema
 const complaintSchema = new mongoose.Schema({
@@ -43,4 +43,4 @@ const complaintSchema = new mongoose.Schema({
 // Compile the schema into a model
 const Complaint = mongoose.model('Complaint', complaintSchema);
 
-module.exports = Complaint;
+export {Complaint};
