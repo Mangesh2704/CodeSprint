@@ -42,7 +42,7 @@ function Header() {
             <Link to="/" className="nav-item nav-link">
               Home
             </Link>
-            <Link to="/About" className="nav-item nav-link">
+            {/* <Link to="/About" className="nav-item nav-link">
               About
             </Link>
             <Link to="/Services" className="nav-item nav-link">
@@ -76,10 +76,19 @@ function Header() {
                   404 Page
                 </Link>
               </div>
-            </div>
+            </div> */}
             <Link to="/Contact" className="nav-item nav-link">
-              Contact
+              Contact Us
             </Link>
+            <Link to="/AddComplaints" className="nav-item nav-link">
+            Add Complaints
+          </Link>
+          <Link to="/MyComplaints" className="nav-item nav-link">
+            My Complaints
+          </Link>
+          <Link to="/Admin" className="nav-item nav-link">
+            Admin Dashboard
+          </Link>
           </div>
           <Link to="/Login" className="btn btn-primary rounded-pill py-2 px-4">
             Register
