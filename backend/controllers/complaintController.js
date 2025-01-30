@@ -25,8 +25,6 @@ const createComplaint = async (req, res) => {
     }
 };
 
-
-
 // Get all complaints (for authorities or admins)
 const getAllComplaints = async (req, res) => {
     try {
