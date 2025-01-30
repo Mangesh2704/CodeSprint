@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom' // Use useNavigate instead of useHistory
 import axios from 'axios'
+import { serverip } from '../helper/helper'
+import useAuth from '../useAuth'
 axios.defaults.withCredentials = true
 
 export default function Login() {
@@ -8,6 +10,8 @@ export default function Login() {
   const [password, setPassword] = useState('') // To store password input
   const [error, setError] = useState('') // To handle error messages
   const navigate = useNavigate() // Use useNavigate for navigation
+  const { setUserData } = useAuth()
+  const url = serverip()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -16,20 +20,23 @@ export default function Login() {
     setError('')
 
     try {
-      const response = await axios.post('https://your-api-url.com/login', {
+      const response = await axios.post(`${serverip()}/user/login`, {
         email,
         password,
       })
-
+      console.log(response)
+      setUserData(response.data.data)
       // Check if login was successful and redirect
-      if (response.data.success) {
+      if (response.data) {
+       
         // Redirect user to dashboard or home after login
-        navigate('/dashboard') // Use navigate instead of history.push
+        navigate('/') // Use navigate instead of history.push
       } else {
         setError('Invalid credentials, please try again.') // Set error message if login fails
       }
     } catch (error) {
-      setError('An error occurred, please try again later.') // Set error message on network error
+      console.log(error)
+      //setError('An error occurred, please try again later.') // Set error message on network error
     }
   }
 

@@ -5,7 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import complaintRouter from './routes/complaintRouter.js'
+import complaintRouter from './routes/complaintRouter.js';
 
 dotenv.config();
 
@@ -21,30 +21,37 @@ const app = express();
 const localIp = process.env.IP;
 const Port = process.env.PORT;
 
-app.use(cors());
+// CORS configuration: Allow only your frontend to send requests
+const corsOptions = {
+    origin: 'http://localhost:3001',  // Replace with the actual frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+    credentials: true, // Allow credentials (cookies, authorization headers)
+};
+
+app.use(cors(corsOptions));  // Apply the CORS configuration
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Configure session middleware with MongoDB store
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'your_secret_key', // Replace with a secure secret key
+    secret: process.env.SESSION_SECRET || 'your_secret_key',  // Replace with a secure secret key
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.DB_URL,
-        collectionName: 'sessions', // Collection where session data will be stored
-        ttl: 14 * 24 * 60 * 60, // Session expiration time (14 days)
+        collectionName: 'sessions',  // Collection where session data will be stored
+        ttl: 14 * 24 * 60 * 60,  // Session expiration time (14 days)
     }),
     cookie: {
-        secure: false, // Set to true if using HTTPS
+        secure: false,  // Set to true if using HTTPS
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        maxAge: 1000 * 60 * 60 * 24,  // 1 day
     },
 }));
 
 app.use('/user', userRouter);
 app.use('/complaint', complaintRouter);
-
 
 app.get('/', (req, res) => {
     res.send("Working fine");

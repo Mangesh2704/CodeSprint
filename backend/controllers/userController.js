@@ -63,10 +63,9 @@ const login = async (req, res) => {
     req.session.user = {
       _id: user._id,
       email: user.email,
-      name: user.name, // Adjust according to your user schema
     };
 
-    res.status(200).json({ message: 'Login successful' });
+    res.status(200).json({ message: 'Login successful' , data: req.session.user});
   } catch (error) {
     res.status(500).json({ message: 'Internal server error', error: error.message });
   }
