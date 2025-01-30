@@ -13,11 +13,6 @@ const userSchema = new Schema({
     required: true,
     minlength: 6, // Minimum length for password
   },
-  name: {
-    type: String,
-    required: true,
-    minlength: 3, // Minimum length for name
-  },
   role: {
     type: String,
     enum: ['user', 'admin'], // You can extend this with other roles if needed
